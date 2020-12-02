@@ -1,0 +1,2 @@
+<!--miniprogram/pages/index.wxml-->
+<button class='login' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">请登录</button>
