@@ -1,2 +1,21 @@
 <!--miniprogram/pages/index.wxml-->
 <button class='login' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">请登录</button>
+<view class="nodal-mask" catchtouchmove="preventTouchMove" wx:if="{{show_flag}}"></view>
+<view class="modal-dialog" wx:if="{{show_flag}}">
+  <view class="modal-content">
+    <view>首次登录，绑定个人信息</view>
+    <input placeholder="姓名" bindinput="onGotUserName" />
+    <radio-group class="radio-group" bindchange="onGotUserSchool">
+      <label class="radio" wx:for="{{school_online}}" wx:key="school_online">
+        <radio value="{{item.value}}" checked="{{item.checked}}"/>{{item.value}}
+      </label>
+    </radio-group>
+    <view class="section">
+      <view class="section_title">请选择生日</view>
+      <picker mode="date" value="{{birthday}}" start="1990-01-01" end="2010-12-31" bindchange="onGotUserBirthday">
+        <view class="picker">{{birthday}}
+        </view>
+      </picker>
+    </view>
+  </view>
+</view>

@@ -1,6 +1,8 @@
 //app.js
 App({
   globalData:{
+    users: [],
+    canteens: [],
   },
 
   onLaunch: function () {
@@ -11,7 +13,10 @@ App({
         traceUser: true,
       })
     }
-
-    this.globalData = {}
+    const db = wx.cloud.database()
+    db.collection('users').get().then(res => {      
+      //console.log(res.data)
+      this.globalData.users = res.data
+    })
   }
 })

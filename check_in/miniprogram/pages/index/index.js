@@ -1,52 +1,41 @@
 // miniprogram/pages/index.js
 var app = getApp();
+//console.log(app.globalData.users)
 
 Page({
 
   data: {
     users: [],
     openId: "",
+    name: "",
+    school: "",
+    birthday: "2000-12-18",
+    show_flag: false,
+    school_online: [{value: "南京大学"}, {value: "东北师范大学", checked: 'true'}]
   },
 
-  onLoad: function (options) {
-    const db = wx.cloud.database({
-      env: 'check-in-0766'
-    })
-    db.collection('users').get({
-      success:res =>{
-        this.setData({
-          users: res.data
-        })
-      }
-    })
+  onLoad: function () {
   },
 
   onReady: function () {
-
   },
 
   onShow: function () {
-
   },
 
   onHide: function () {
-
   },
 
   onUnload: function () {
-
   },
 
   onPullDownRefresh: function () {
-
   },
 
   onReachBottom: function () {
-
   },
 
   onShareAppMessage: function () {
-
   },
 
   onGotUserInfo: function (e){
@@ -79,7 +68,8 @@ Page({
             resolve(res.result.openId)
           }).then(res => {
             that.setData({
-              openId: res
+              openId: res,
+              users: app.globalData.users
             })
             that.searchUser();
           })
@@ -90,7 +80,7 @@ Page({
 
   searchUser: function(){
     console.log(this.data.openId)
-    console.log(this.data.users.length)
+    //console.log(this.data.users.length)
     var that = this;
     var flag = 0;
     for(var i = 0; i < this.data.users.length; i++){
@@ -99,10 +89,40 @@ Page({
       }
     }
     if(flag == 0){
-      console.log("User missing!")
-      that.registerUser();
+      //console.log("User missing!")
+      that.showInfo();
     }
   },
 
-  registerUser: function(){}
+  showInfo: function(){
+    this.setData({
+      show_flag: true
+    })
+  },
+
+  hideInfo: function(){
+    this.setData({
+      show_flag: false
+    })
+  },
+
+  onGotUserName: function(e){
+    //console.log(e.detail.value)
+    this.setData({
+      name: e.detail.value
+    })
+  },
+
+  onGotUserSchool: function(e){
+    //console.log(e.detail.value)
+    this.setData({
+      school: e.detail.value
+    })
+  },
+
+  onGotUserBirthday: function(e){
+    this.setData({
+      birthday: e.detail.value
+    })
+  }
 })
