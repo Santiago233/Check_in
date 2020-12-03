@@ -17,5 +17,6 @@
         </view>
       </picker>
     </view>
+    <button></button>
   </view>
 </view>
