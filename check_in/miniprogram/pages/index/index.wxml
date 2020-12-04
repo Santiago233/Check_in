@@ -1,6 +1,6 @@
 <!--miniprogram/pages/index.wxml-->
 <button class='login' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">请登录</button>
-<view class="nodal-mask" catchtouchmove="preventTouchMove" wx:if="{{show_flag}}"></view>
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{show_flag}}"></view>
 <view class="modal-dialog" wx:if="{{show_flag}}">
   <view class="modal-content">
     <view>首次登录，绑定个人信息</view>
@@ -17,6 +17,8 @@
         </view>
       </picker>
     </view>
-    <button></button>
+    <button bindtap="MakeSure">
+      <text>确认上传</text>
+    </button>
   </view>
 </view>

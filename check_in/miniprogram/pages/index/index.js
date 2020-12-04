@@ -9,9 +9,9 @@ Page({
     openId: "",
     name: "",
     school: "",
-    birthday: "2000-12-18",
+    birthday: "2000-01-01",
     show_flag: false,
-    school_online: [{value: "南京大学"}, {value: "东北师范大学", checked: 'true'}]
+    school_online: [{value: "南京大学", checked: 'true'}, {value: "东北师范大学"}]
   },
 
   onLoad: function () {
@@ -39,7 +39,7 @@ Page({
   },
 
   onGotUserInfo: function (e){
-    var that = this;
+    var that = this
     if(e.detail.errMsg == "getUserInfo:ok"){
       //console.log(e.detail.userInfo)
       /*wx.login({
@@ -79,18 +79,18 @@ Page({
   },
 
   searchUser: function(){
-    console.log(this.data.openId)
+    //console.log(this.data.openId)
     //console.log(this.data.users.length)
-    var that = this;
-    var flag = 0;
+    var that = this
+    var flag = 0
     for(var i = 0; i < this.data.users.length; i++){
       if(this.data.users[i].openId == this.data.openId){
-        flag = 1;
+        flag = 1
       }
     }
     if(flag == 0){
       //console.log("User missing!")
-      that.showInfo();
+      that.showInfo()
     }
   },
 
@@ -123,6 +123,25 @@ Page({
   onGotUserBirthday: function(e){
     this.setData({
       birthday: e.detail.value
+    })
+  },
+
+  MakeSure: function(e){
+    var that = this
+    const db = wx.cloud.database()
+    db.collection('users').add({
+      data:{
+        openId: that.data.openId,
+        name: that.data.name,
+        school: that.data.school,
+        birthday: that.data.birthday,
+      },
+      success: res => {
+        console.log(res)
+      },
+      fail: err => {
+        console.log(err)
+      }
     })
   }
 })
