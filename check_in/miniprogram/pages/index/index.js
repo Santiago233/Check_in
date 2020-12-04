@@ -8,7 +8,7 @@ Page({
     users: [],
     openId: "",
     name: "",
-    school: "",
+    school: "南京大学",
     birthday: "2000-01-01",
     show_flag: false,
     school_online: [{value: "南京大学", checked: 'true'}, {value: "东北师范大学"}]
@@ -91,7 +91,12 @@ Page({
     if(flag == 0){
       //console.log("User missing!")
       that.showInfo()
+    }else{
+      that.saveInfo()
     }
+    wx.navigateTo({
+      url: '../userInfo/userInfo',
+    })
   },
 
   showInfo: function(){
@@ -135,13 +140,28 @@ Page({
         name: that.data.name,
         school: that.data.school,
         birthday: that.data.birthday,
+        days: []
       },
       success: res => {
-        console.log(res)
+        //console.log(res)
       },
       fail: err => {
-        console.log(err)
+        //console.log(err)
       }
+    })
+    that.saveInfo()
+  },
+
+  saveInfo: function(){
+    var userdata = {
+      openId: this.data.openId,
+      name: this.data.name,
+      school: this.data.school,
+      birthday: this.data.birthday
+    }
+    wx.setStorage({
+      key: 'user',
+      data: userdata
     })
   }
 })

@@ -1,0 +1,8 @@
+<!--miniprogram/pages/userInfo/userInfo.wxml-->
+<open-data type="userAvatarUrl"></open-data>
+<view class="container">
+  <open-data type="userNickName" lang="zh_CN"></open-data>
+  <text>{{name}}</text>
+  <text>{{school}}</text>
+  <text>{{birthday}}</text>
+</view>
